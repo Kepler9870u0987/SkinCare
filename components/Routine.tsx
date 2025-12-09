@@ -1,136 +1,194 @@
 import React, { useState } from 'react';
-import { MORNING_ROUTINE, EVENING_ROUTINE } from '../data';
+import { MORNING_ROUTINE, EVENING_ROUTINE, WEEKLY_IMAGES_DATA } from '../data';
 import { Card } from './ui/Card';
-import { Sun, Moon, Clock, Info } from 'lucide-react';
+import { Sun, Moon, Clock, Info, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const Routine: React.FC = () => {
   const [mode, setMode] = useState<'morning' | 'evening'>('morning');
   const activeRoutine = mode === 'morning' ? MORNING_ROUTINE : EVENING_ROUTINE;
 
+  // Helper function to calculate end time
+  const getEndTime = (startTime: string, duration: number) => {
+    const [hours, minutes] = startTime.split(':').map(Number);
+    const endMinutes = minutes + duration;
+    const endHours = hours + Math.floor(endMinutes / 60);
+    const remainingMinutes = endMinutes % 60;
+    return `${String(endHours).padStart(2, '0')}:${String(remainingMinutes).padStart(2, '0')}`;
+  };
+
   return (
     <div className="space-y-6">
+      {/* Mode Switcher */}
       <div className="flex justify-center mb-8">
-        <div className="bg-slate-100 p-1 rounded-full inline-flex">
+        <div className="bg-slate-200 p-1.5 rounded-full inline-flex shadow-inner">
           <button
             onClick={() => setMode('morning')}
-            className={`px-6 py-2 rounded-full flex items-center space-x-2 transition-all ${
-              mode === 'morning' ? 'bg-white shadow-sm text-sky-600 font-bold' : 'text-slate-500'
+            className={`px-8 py-3 rounded-full flex items-center space-x-3 transition-all duration-300 ${
+              mode === 'morning' 
+              ? 'bg-white shadow-md text-sky-600 font-bold scale-105' 
+              : 'text-slate-500 hover:text-slate-700'
             }`}
           >
-            <Sun className="w-4 h-4" />
+            <Sun className={`w-5 h-5 ${mode === 'morning' ? 'animate-spin-slow' : ''}`} />
             <span>Mattina (10 min)</span>
           </button>
           <button
             onClick={() => setMode('evening')}
-            className={`px-6 py-2 rounded-full flex items-center space-x-2 transition-all ${
-              mode === 'evening' ? 'bg-indigo-600 shadow-sm text-white font-bold' : 'text-slate-500'
+            className={`px-8 py-3 rounded-full flex items-center space-x-3 transition-all duration-300 ${
+              mode === 'evening' 
+              ? 'bg-indigo-600 shadow-md text-white font-bold scale-105' 
+              : 'text-slate-500 hover:text-slate-700'
             }`}
           >
-            <Moon className="w-4 h-4" />
-            <span>Sera (20 min)</span>
+            <Moon className={`w-5 h-5 ${mode === 'evening' ? 'animate-pulse' : ''}`} />
+            <span>Sera (23 min)</span>
           </button>
         </div>
       </div>
 
-      <div className="relative border-l-2 border-slate-200 ml-4 md:ml-6 space-y-8">
+      <div className="relative border-l-2 border-slate-200 ml-4 md:ml-8 space-y-10 pb-12">
         <AnimatePresence mode='wait'>
           {activeRoutine.map((step, idx) => (
             <motion.div
               key={`${mode}-${idx}`}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ delay: idx * 0.1 }}
-              className="relative pl-8 md:pl-10"
+              className="relative pl-8 md:pl-12"
             >
-              {/* Timeline Dot */}
-              <div className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full border-2 ${
-                mode === 'morning' ? 'bg-sky-100 border-sky-500' : 'bg-indigo-100 border-indigo-500'
+              {/* Timeline Dot & Connector */}
+              <div className={`absolute -left-[9px] top-6 w-5 h-5 rounded-full border-4 bg-white z-10 ${
+                mode === 'morning' ? 'border-sky-500' : 'border-indigo-500'
               }`} />
               
-              <div className="flex flex-col md:flex-row md:items-start gap-4">
-                <div className="md:w-32 flex-shrink-0 pt-1">
-                  <span className={`text-sm font-bold px-2 py-1 rounded ${
-                     mode === 'morning' ? 'bg-sky-50 text-sky-700' : 'bg-indigo-50 text-indigo-700'
-                  }`}>
-                    {step.time}
-                  </span>
+              <div className="flex flex-col gap-2">
+                {/* Time Badge */}
+                <div className="flex items-center space-x-2 mb-1">
+                   <span className={`text-sm font-bold px-3 py-1 rounded-full ${
+                      mode === 'morning' ? 'bg-sky-100 text-sky-800' : 'bg-indigo-100 text-indigo-800'
+                   }`}>
+                     {step.time} - {getEndTime(step.time, step.duration)}
+                   </span>
+                   <span className="text-xs text-slate-400 font-medium flex items-center">
+                     <Clock className="w-3 h-3 mr-1" /> {step.duration} min
+                   </span>
                 </div>
                 
-                <Card className="flex-grow !p-0 overflow-hidden group">
+                {/* Product Card */}
+                <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300 group">
                    <div className="flex flex-col sm:flex-row">
-                      {/* Product Image Section */}
-                      <div className="sm:w-32 h-32 sm:h-auto bg-slate-50 flex-shrink-0 flex items-center justify-center p-4 border-b sm:border-b-0 sm:border-r border-slate-100">
-                        {step.image ? (
-                          <img 
-                            src={step.image} 
-                            alt={step.product} 
-                            className="w-full h-full object-contain mix-blend-multiply opacity-90 group-hover:scale-105 transition-transform duration-500"
-                          />
-                        ) : (
-                          <div className="w-12 h-12 rounded-full bg-slate-200" />
-                        )}
+                      {/* Product Image */}
+                      <div className="sm:w-40 h-48 sm:h-auto bg-white flex-shrink-0 flex items-center justify-center p-4 border-b sm:border-b-0 sm:border-r border-slate-50 relative">
+                        <div className="w-full h-full relative">
+                          {step.image ? (
+                            <img 
+                              src={step.image} 
+                              alt={step.product} 
+                              className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-slate-100 rounded-lg flex items-center justify-center text-slate-300">No Img</div>
+                          )}
+                        </div>
                       </div>
 
-                      <div className="p-5 flex-grow relative">
+                      <div className="p-6 flex-grow relative">
                          {step.essential && (
-                           <div className="absolute top-0 right-0 bg-rose-500 text-white text-[10px] px-2 py-1 rounded-bl-lg font-bold tracking-wider">
+                           <div className="absolute top-4 right-4 bg-rose-500 text-white text-[10px] px-3 py-1 rounded-full font-bold tracking-wider shadow-sm animate-pulse">
                              ESSENZIALE
                            </div>
                          )}
-                         <h3 className="font-bold text-lg text-slate-800 mb-1">{step.title}</h3>
-                         <p className="text-sky-600 font-medium text-sm mb-4">{step.product}</p>
+                         
+                         <h3 className="font-bold text-xl text-slate-800 mb-1">{step.title}</h3>
+                         <p className={`${mode === 'morning' ? 'text-sky-600' : 'text-indigo-600'} font-medium text-base mb-6 border-b border-slate-100 pb-4`}>
+                           {step.product}
+                         </p>
                          
                          <div className="grid md:grid-cols-2 gap-4">
-                           <div className="bg-slate-50 p-3 rounded text-sm text-slate-700">
-                              <strong className="block text-slate-900 mb-1 flex items-center text-xs uppercase tracking-wide">
-                                <Clock className="w-3 h-3 mr-1" /> Azione
+                           <div className="bg-slate-50 p-4 rounded-xl">
+                              <strong className="text-slate-900 mb-2 flex items-center text-xs uppercase tracking-wider font-bold">
+                                <Clock className="w-3 h-3 mr-2" /> Azione
                               </strong>
-                              {step.action}
+                              <p className="text-sm text-slate-700 leading-relaxed">{step.action}</p>
                            </div>
-                           <div className="bg-sky-50 p-3 rounded text-sm text-sky-900">
-                              <strong className="block text-sky-700 mb-1 flex items-center text-xs uppercase tracking-wide">
-                                <Info className="w-3 h-3 mr-1" /> Perché
+                           <div className={`${mode === 'morning' ? 'bg-sky-50 text-sky-900' : 'bg-indigo-50 text-indigo-900'} p-4 rounded-xl`}>
+                              <strong className={`mb-2 flex items-center text-xs uppercase tracking-wider font-bold ${mode === 'morning' ? 'text-sky-700' : 'text-indigo-700'}`}>
+                                <Info className="w-3 h-3 mr-2" /> Perché
                               </strong>
-                              {step.why}
+                              <p className="text-sm leading-relaxed opacity-90">{step.why}</p>
                            </div>
                          </div>
                       </div>
                    </div>
-                </Card>
+                </div>
               </div>
             </motion.div>
           ))}
+          
+          {/* Completion Card */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: activeRoutine.length * 0.1 + 0.2 }}
+            className="relative pl-8 md:pl-12 pt-4"
+          >
+             <div className="absolute -left-[7px] top-10 w-4 h-4 rounded-full bg-green-500 border-2 border-white shadow" />
+             <div className="bg-green-50 border border-green-200 rounded-xl p-6 flex items-center space-x-4">
+               <div className="bg-green-100 p-3 rounded-full">
+                 <CheckCircle2 className="w-8 h-8 text-green-600" />
+               </div>
+               <div>
+                 <h4 className="font-bold text-green-900 text-lg">Routine Completata</h4>
+                 <p className="text-green-700 text-sm">
+                   {mode === 'morning' 
+                     ? "Sei pronto per la giornata! Ricorda di riapplicare l'SPF se esci." 
+                     : "Buon riposo! Gli attivi lavoreranno durante la notte."}
+                 </p>
+               </div>
+             </div>
+          </motion.div>
+
         </AnimatePresence>
       </div>
 
       {mode === 'evening' && (
-        <div className="mt-12 bg-indigo-50 p-6 rounded-xl border border-indigo-100">
-          <h4 className="font-bold text-indigo-900 mb-4">Trattamenti Settimanali (Sera)</h4>
-          <div className="grid md:grid-cols-2 gap-4">
-             <div className="bg-white p-4 rounded-lg shadow-sm flex items-start space-x-4">
-                <div className="w-16 h-16 bg-slate-100 rounded-lg flex-shrink-0 overflow-hidden">
-                   {/* Placeholder for COSRX AHA */}
-                   <img src="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&q=80&w=200" alt="Exfoliant" className="w-full h-full object-cover" />
-                </div>
-                <div>
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">2-3x Settimana</span>
-                  <h5 className="font-bold text-slate-800">Esfoliazione Chimica</h5>
-                  <p className="text-sm text-slate-600 mt-1">COSRX AHA/BHA Toner</p>
-                  <p className="text-xs text-rose-500 mt-2 font-medium">Non combinare con Retinolo nello stesso giorno.</p>
+        <div className="mt-12 bg-gradient-to-br from-slate-900 to-indigo-900 p-8 rounded-2xl text-white shadow-xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500 rounded-full mix-blend-overlay filter blur-3xl opacity-20 -mr-16 -mt-16"></div>
+          
+          <h4 className="font-bold text-2xl mb-6 relative z-10">Trattamenti Settimanali (Sera)</h4>
+          <div className="grid md:grid-cols-2 gap-6 relative z-10">
+             {/* Exfoliation Card */}
+             <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:bg-white/20 transition-all">
+                <div className="flex items-start gap-4">
+                  <div className="w-20 h-20 bg-white rounded-lg flex-shrink-0 p-2">
+                     <img src={WEEKLY_IMAGES_DATA.cosrxAHA} alt="Exfoliant" className="w-full h-full object-contain" />
+                  </div>
+                  <div>
+                    <span className="inline-block bg-indigo-500 text-xs font-bold px-2 py-1 rounded mb-2">2-3x Settimana</span>
+                    <h5 className="font-bold text-lg">Esfoliazione Chimica</h5>
+                    <p className="text-sm text-indigo-200 mt-1 mb-2">COSRX AHA/BHA Toner</p>
+                    <p className="text-xs text-rose-300 font-medium bg-rose-900/30 px-2 py-1 rounded inline-block">
+                      ⚠️ No Retinolo stesso giorno
+                    </p>
+                  </div>
                 </div>
              </div>
-             <div className="bg-white p-4 rounded-lg shadow-sm flex items-start space-x-4">
-                 <div className="w-16 h-16 bg-slate-100 rounded-lg flex-shrink-0 overflow-hidden">
-                   {/* Placeholder for Mask */}
-                   <img src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&q=80&w=200" alt="Mask" className="w-full h-full object-cover" />
-                </div>
-                <div>
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Domenica Sera</span>
-                  <h5 className="font-bold text-slate-800">Maschera Calming</h5>
-                  <p className="text-sm text-slate-600 mt-1">Beauty of Joseon Centella Mask</p>
-                  <p className="text-xs text-sky-500 mt-2 font-medium">Prepara la pelle per la settimana.</p>
+
+             {/* Mask Card */}
+             <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:bg-white/20 transition-all">
+                <div className="flex items-start gap-4">
+                  <div className="w-20 h-20 bg-white rounded-lg flex-shrink-0 p-2">
+                     <img src={WEEKLY_IMAGES_DATA.bojMask} alt="Mask" className="w-full h-full object-contain" />
+                  </div>
+                  <div>
+                    <span className="inline-block bg-green-600 text-xs font-bold px-2 py-1 rounded mb-2">Domenica Sera</span>
+                    <h5 className="font-bold text-lg">Maschera Calming</h5>
+                    <p className="text-sm text-indigo-200 mt-1 mb-2">Beauty of Joseon Centella Mask</p>
+                    <p className="text-xs text-green-300 font-medium">Reset barriera cutanea</p>
+                  </div>
                 </div>
              </div>
           </div>

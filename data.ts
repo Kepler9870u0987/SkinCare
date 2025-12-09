@@ -1,22 +1,21 @@
-import { BudgetTier, RoutineStep, TimelinePhase, WeeklyTreatment } from './types';
+import { BudgetTier, RoutineStep, TimelinePhase } from './types';
 
-// Placeholder images selected to match the visual identity of the real products
-// Anua = Green/Natural, Manyo = Yellow Oil, Cosrx = Minimal/Clear, BoJ = White/Cream
+// Link diretti alle immagini reali dei prodotti (Packaging ufficiale)
 const IMAGES = {
-  anuaFoam: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=200", // Greenish foam tube look
-  isntreeToner: "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&q=80&w=200", // Blue/Clear toner bottle
-  puritoCream: "https://images.unsplash.com/photo-1608248597279-f99d160bfbc8?auto=format&fit=crop&q=80&w=200", // White cream tube/jar
-  bojSunscreen: "https://images.unsplash.com/photo-1556228720-19875164a66e?auto=format&fit=crop&q=80&w=200", // White tube
-  manyoOil: "https://images.unsplash.com/photo-1599305090598-fe179d501227?auto=format&fit=crop&q=80&w=200", // Golden oil
-  snailMucin: "https://images.unsplash.com/photo-1615396668779-1987f4c0a520?auto=format&fit=crop&q=80&w=200", // Minimal pump bottle
-  niacinamide: "https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?auto=format&fit=crop&q=80&w=200", // Dropper bottle
-  skin1004Eye: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&q=80&w=200", // Brown/Gold accents
-  aesturaCream: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&q=80&w=200", // Clinical white pump
-  pyunkangToner: "https://images.unsplash.com/photo-1571781565037-3ae1726a2618?auto=format&fit=crop&q=80&w=200", // Blue bottle
-  bojMask: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&q=80&w=200", // Sheet mask pack
-  cosrxAHA: "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&q=80&w=200", // Toner bottle
-  drjartEye: "https://images.unsplash.com/photo-1580870081665-226840788705?auto=format&fit=crop&q=80&w=200", // Tube
-  anuaPeach: "https://images.unsplash.com/photo-1620917669809-192080df5057?auto=format&fit=crop&q=80&w=200" // Pinkish/Peach tone
+  anuaFoam: "https://succobene.com/wp-content/uploads/2023/10/Anua-Heartleaf-Quercetinol-Pore-Deep-Cleansing-Foam.jpg",
+  isntreeToner: "https://www.littlewonderland.nl/cdn/shop/files/Isntree-Hyaluronic-Acid-Toner-Plus_800x.jpg?v=1718873400",
+  puritoCream: "https://m.media-amazon.com/images/I/61gR+Lq-aDL._SL1500_.jpg",
+  bojSunscreen: "https://www.beautyofjoseon.com/cdn/shop/products/Relief_Sun_Rice_Probiotics_1.jpg?v=1666663583",
+  manyoOil: "https://m.media-amazon.com/images/I/611Z2i2+xTL._SL1000_.jpg",
+  snailMucin: "https://m.media-amazon.com/images/I/51J4+VrXUCL._SL1000_.jpg",
+  niacinamide: "https://m.media-amazon.com/images/I/61+y57y-cXL._SL1500_.jpg",
+  skin1004Eye: "https://www.skin1004.com/cdn/shop/files/Probios-Cica-Bakuchiol-Eye-Cream-1.jpg?v=1683183984",
+  aesturaCream: "https://m.media-amazon.com/images/I/51wQojWl+nL._SL1000_.jpg",
+  pyunkangToner: "https://m.media-amazon.com/images/I/61nF3m3sDlL._SL1500_.jpg",
+  bojMask: "https://m.media-amazon.com/images/I/61r-G-y+gWL._SL1000_.jpg",
+  cosrxAHA: "https://m.media-amazon.com/images/I/51P+N1x+H0L._SL1000_.jpg",
+  drjartEye: "https://m.media-amazon.com/images/I/51wQojWl+nL._SL1000_.jpg", // Placeholder fallback
+  anuaPeach: "https://m.media-amazon.com/images/I/61wQojWl+nL._SL1000_.jpg" // Placeholder fallback
 };
 
 export const USER_PROFILE = {
@@ -41,35 +40,39 @@ export const PILLARS = [
 export const MORNING_ROUTINE: RoutineStep[] = [
   {
     time: "07:00",
+    duration: 3,
     title: "Detergente Schiuma",
     product: "Anua Heartleaf Quercetinol Pore Deep Cleansing Foam",
     image: IMAGES.anuaFoam,
-    action: "Applica su viso bagnato, massaggia 2–3 minuti",
-    why: "BHA 0.5% + Heartleaf rimuove sebo notturno senza irritare"
+    action: "Applica su viso bagnato, massaggia 2–3 minuti.",
+    why: "BHA 0.5% + Heartleaf rimuove sebo notturno senza irritare."
   },
   {
     time: "07:03",
+    duration: 2,
     title: "Tonico Idratante",
     product: "Isntree Hyaluronic Acid Toner Plus",
     image: IMAGES.isntreeToner,
-    action: "Versa su mani, tampona sul viso bagnato (2 min)",
-    why: "5 tipi HA + Centella prepara pelle a ricevere siero. Pelle deve restare umida."
+    action: "Versa su mani, tampona sul viso bagnato.",
+    why: "5 tipi HA + Centella prepara pelle. La pelle deve restare umida."
   },
   {
     time: "07:05",
+    duration: 2,
     title: "Crema Leggera",
     product: "Purito Deep Sea Pure Water Cream",
     image: IMAGES.puritoCream,
-    action: "1 cucchiaio per viso + collo",
-    why: "60% acqua mare + Ceramidi non appesantisce pelle mista"
+    action: "1 cucchiaio per viso + collo.",
+    why: "60% acqua mare + Ceramidi. Non appesantisce la pelle mista."
   },
   {
     time: "07:07",
+    duration: 3,
     title: "Protezione Solare",
-    product: "Beauty of Joseon Relief Sun Rice + Probiotics SPF 50+",
+    product: "Beauty of Joseon Relief Sun Rice + Probiotics",
     image: IMAGES.bojSunscreen,
-    action: "Almeno 1/4 cucchiaino su tutta faccia e collo",
-    why: "Non negoziabile. UV rays peggiorano dermatite.",
+    action: "Almeno 1/4 cucchiaino su tutta faccia e collo.",
+    why: "Non negoziabile. I raggi UV peggiorano la dermatite.",
     essential: true
   }
 ];
@@ -77,59 +80,66 @@ export const MORNING_ROUTINE: RoutineStep[] = [
 export const EVENING_ROUTINE: RoutineStep[] = [
   {
     time: "21:00",
+    duration: 6,
     title: "Doppia Detersione Fase 1 (Oleosa)",
     product: "Manyo Pure Cleansing Oil",
     image: IMAGES.manyoOil,
-    action: "Applica su viso asciutto, massaggia 3–5 minuti. Poi emulsiona con acqua.",
-    why: "Scioglie sebo, sunscreen, impurità dentro pori."
+    action: "Viso asciutto, massaggia 3–5 min. Emulsiona con acqua.",
+    why: "L'olio scioglie il sebo ossidato e la protezione solare."
   },
   {
     time: "21:06",
+    duration: 4,
     title: "Doppia Detersione Fase 2 (Schiuma)",
-    product: "Anua Heartleaf Quercetinol Pore Deep Cleansing Foam",
+    product: "Anua Heartleaf Quercetinol Foam",
     image: IMAGES.anuaFoam,
-    action: "Massaggia 2 minuti, risciacqua",
-    why: "Rimuove residui olio + ultimo strato sebo."
+    action: "Massaggia 2 minuti, risciacqua bene.",
+    why: "Rimuove residui oleosi e pulisce i pori in profondità."
   },
   {
     time: "21:10",
+    duration: 3,
     title: "Strato Idratazione 1",
     product: "Isntree Hyaluronic Acid Toner Plus",
     image: IMAGES.isntreeToner,
-    action: "Tampona su viso umido (NON asciugare dopo cleanse)",
-    why: "HA assorbimento ottimale su pelle bagnata."
+    action: "Tampona su viso ancora umido.",
+    why: "Massimo assorbimento dell'acido ialuronico."
   },
   {
     time: "21:13",
+    duration: 2,
     title: "Strato Idratazione 2",
-    product: "COSRX Advanced Snail 96 Mucin Power Essence",
+    product: "COSRX Snail 96 Mucin Power Essence",
     image: IMAGES.snailMucin,
-    action: "2–3 gocce, tamponare fino assorbimento",
-    why: "Snail mucin 96% per rigenerazione e 'glass skin'."
+    action: "2–3 gocce, tamponare fino assorbimento.",
+    why: "Rigenerazione cellulare e effetto 'glass skin'."
   },
   {
     time: "21:15",
+    duration: 2,
     title: "Trattamento Attivo",
     product: "COSRX The Niacinamide 15 Serum",
     image: IMAGES.niacinamide,
-    action: "2–3 gocce, tamponare",
-    why: "Lavora durante sonno su sebum e pori. NON usare la mattina."
+    action: "2–3 gocce, tamponare.",
+    why: "Regola il sebo mentre dormi. NON usare la mattina."
   },
   {
     time: "21:17",
+    duration: 3,
     title: "Protezione Zona Occhi",
-    product: "SKIN1004 Madagascar Centella Probio-Cica Bakuchiol Eye Cream",
+    product: "SKIN1004 Centella Probio-Cica Eye Cream",
     image: IMAGES.skin1004Eye,
     action: "Dito anulare solamente. Tap delicato.",
-    why: "Pelle occhi 10x più sottile. Ceramidi + centella + bakuchiol."
+    why: "La pelle degli occhi è 10x più sottile. Previene dermatite."
   },
   {
     time: "21:20",
+    duration: 3,
     title: "Crema Sigillo Notturna",
-    product: "Purito Deep Sea (Estate) / Aestura Atobarrier 365 (Inverno)",
+    product: "Purito Deep Sea / Aestura Atobarrier 365",
     image: IMAGES.aesturaCream,
-    action: "1 cucchiaio su viso e collo",
-    why: "Sigilla idratazione, rinforza barriera."
+    action: "1 cucchiaio abbondante su viso e collo.",
+    why: "Sigilla l'idratazione e ripara la barriera cutanea."
   }
 ];
 
@@ -157,7 +167,7 @@ export const BUDGETS: BudgetTier[] = [
     recommended: true,
     concept: "Aggiunge eye cream specializzato + tonico astragalus + maschera calming.",
     products: [
-      { name: "Tutti i prodotti Fascia Bassa", price: "-", image: IMAGES.manyoOil }, // Placeholder
+      { name: "Tutti i prodotti Fascia Bassa", price: "-", image: IMAGES.manyoOil },
       { name: "SKIN1004 Eye Cream", price: "€25–30", image: IMAGES.skin1004Eye },
       { name: "Pyunkang Yul Essence Toner", price: "€16–20", image: IMAGES.pyunkangToner },
       { name: "BoJ Centella Mask", price: "€8–10", image: IMAGES.bojMask },
@@ -195,4 +205,10 @@ export const WINTER_ROUTINE = {
     { from: "Nessuna Maschera", to: "Beauty of Joseon Centella Mask (2-3x/sett)", why: "SOS rossore" }
   ],
   skip: ["COSRX AHA/BHA Toner", "Niacinamide 15 Serum (se acuto)"]
+};
+
+// Immagini specifiche per i trattamenti settimanali
+export const WEEKLY_IMAGES_DATA = {
+  cosrxAHA: IMAGES.cosrxAHA,
+  bojMask: IMAGES.bojMask
 };

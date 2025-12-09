@@ -20,6 +20,7 @@ export interface BudgetTier {
 
 export interface RoutineStep {
   time: string;
+  duration: number; // in minutes
   title: string;
   product: string;
   image?: string;

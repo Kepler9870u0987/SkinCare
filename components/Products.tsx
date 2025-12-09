@@ -42,12 +42,12 @@ export const Products: React.FC = () => {
            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
              {BUDGETS[activeTier].products.map((prod, pIdx) => (
                <div key={pIdx} className="bg-white rounded-xl shadow-sm border border-slate-100 p-4 flex items-start space-x-4 hover:border-sky-200 transition-colors group">
-                 <div className="w-16 h-16 flex-shrink-0 bg-slate-50 rounded-lg overflow-hidden border border-slate-100">
+                 <div className="w-16 h-16 flex-shrink-0 bg-white rounded-lg overflow-hidden border border-slate-100 p-1">
                    {prod.image ? (
                      <img 
                       src={prod.image} 
                       alt={prod.name} 
-                      className="w-full h-full object-contain mix-blend-multiply p-1 group-hover:scale-105 transition-transform" 
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform" 
                      />
                    ) : (
                      <div className="w-full h-full bg-slate-200 flex items-center justify-center text-slate-400 text-xs">IMG</div>
