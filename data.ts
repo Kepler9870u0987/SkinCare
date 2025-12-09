@@ -2,20 +2,20 @@ import { BudgetTier, RoutineStep, TimelinePhase } from './types';
 
 // Link diretti alle immagini reali dei prodotti (Packaging ufficiale)
 const IMAGES = {
-  anuaFoam: "https://succobene.com/wp-content/uploads/2023/10/Anua-Heartleaf-Quercetinol-Pore-Deep-Cleansing-Foam.jpg",
-  isntreeToner: "https://www.littlewonderland.nl/cdn/shop/files/Isntree-Hyaluronic-Acid-Toner-Plus_800x.jpg?v=1718873400",
-  puritoCream: "https://m.media-amazon.com/images/I/61gR+Lq-aDL._SL1500_.jpg",
-  bojSunscreen: "https://www.beautyofjoseon.com/cdn/shop/products/Relief_Sun_Rice_Probiotics_1.jpg?v=1666663583",
-  manyoOil: "https://m.media-amazon.com/images/I/611Z2i2+xTL._SL1000_.jpg",
-  snailMucin: "https://m.media-amazon.com/images/I/51J4+VrXUCL._SL1000_.jpg",
-  niacinamide: "https://m.media-amazon.com/images/I/61+y57y-cXL._SL1500_.jpg",
-  skin1004Eye: "https://www.skin1004.com/cdn/shop/files/Probios-Cica-Bakuchiol-Eye-Cream-1.jpg?v=1683183984",
-  aesturaCream: "https://m.media-amazon.com/images/I/51wQojWl+nL._SL1000_.jpg",
-  pyunkangToner: "https://m.media-amazon.com/images/I/61nF3m3sDlL._SL1500_.jpg",
-  bojMask: "https://m.media-amazon.com/images/I/61r-G-y+gWL._SL1000_.jpg",
-  cosrxAHA: "https://m.media-amazon.com/images/I/51P+N1x+H0L._SL1000_.jpg",
-  drjartEye: "https://m.media-amazon.com/images/I/51wQojWl+nL._SL1000_.jpg", // Placeholder fallback
-  anuaPeach: "https://m.media-amazon.com/images/I/61wQojWl+nL._SL1000_.jpg" // Placeholder fallback
+  anuaFoam: "/img/anua-foam.jpg",
+  isntreeToner: "/img/isntree-toner.jpg",
+  puritoCream: "/img/purito-cream.jpg",
+  bojSunscreen: "/img/boj-sunscreen.jpg",
+  manyoOil: "/img/manyo-oil.jpg",
+  snailMucin: "/img/snail-mucin.jpg",
+  niacinamide: "/img/niacinamide.jpg",
+  skin1004Eye: "/img/skin1004-eye.jpg",
+  aesturaCream: "/img/aestura-cream.jpg",
+  pyunkangToner: "/img/pyunkang-toner.jpg",
+  bojMask: "/img/boj-mask.jpg",
+  cosrxAHA: "/img/cosrx-aha.jpg",
+  drjartEye: "/img/drjart-eye.jpg",
+  anuaPeach: "/img/anua-peach.jpg"
 };
 
 export const USER_PROFILE = {
