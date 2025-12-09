@@ -2,20 +2,20 @@ import { BudgetTier, RoutineStep, TimelinePhase } from './types';
 
 // Link diretti alle immagini reali dei prodotti (Packaging ufficiale)
 const IMAGES = {
-  anuaFoam: "/img/anua-foam.jpg",
-  isntreeToner: "/img/isntree-toner.jpg",
-  puritoCream: "/img/purito-cream.jpg",
-  bojSunscreen: "/img/boj-sunscreen.jpg",
-  manyoOil: "/img/manyo-oil.jpg",
-  snailMucin: "/img/snail-mucin.jpg",
-  niacinamide: "/img/niacinamide.jpg",
-  skin1004Eye: "/img/skin1004-eye.jpg",
-  aesturaCream: "/img/aestura-cream.jpg",
-  pyunkangToner: "/img/pyunkang-toner.jpg",
-  bojMask: "/img/boj-mask.jpg",
-  cosrxAHA: "/img/cosrx-aha.jpg",
-  drjartEye: "/img/drjart-eye.jpg",
-  anuaPeach: "/img/anua-peach.jpg"
+  anuaFoam: "/images/anua-foam.jpg",
+  isntreeToner: "/images/isntree-toner.jpg",
+  puritoCream: "/images/purito-cream.jpg",
+  bojSunscreen: "/images/boj-sunscreen.jpg",
+  manyoOil: "/images/manyo-oil.jpg",
+  snailMucin: "/images/snail-mucin.jpg",
+  niacinamide: "/images/niacinamide.jpg",
+  skin1004Eye: "/images/skin1004-eye.jpg",
+  aesturaCream: "/images/aestura-cream.jpg",
+  pyunkangToner: "/images/pyunkang-toner.jpg",
+  bojMask: "/images/boj-mask.jpg",
+  cosrxAHA: "/images/cosrx-aha.jpg",
+  drjartEye: "/images/drjart-eye.jpg",
+  anuaPeach: "/images/anua-peach.jpg"
 };
 
 export const USER_PROFILE = {
